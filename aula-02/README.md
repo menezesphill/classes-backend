@@ -1,8 +1,8 @@
-### Na ultima aula:
+## Na ultima aula:
 
 Nós consumimos uma API
 
-### Nesta aula:
+## Nesta aula:
 
 Vamos criar nossa primeira API
 - Simples
@@ -27,3 +27,11 @@ Em `router.js`:
 
 Em `controller.js`:
  - Onde de fato a gente define as funções que estão associadas a cada rota
+ 
+ ## Para executar essa API:
+ 
+ ```sh
+ cd aula-02
+ npm i
+ node server.js
+ ```
