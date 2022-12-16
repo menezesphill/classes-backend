@@ -1,0 +1,10 @@
+{
+  "name": "ts-review",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "execute": "tsc index.ts && node index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
