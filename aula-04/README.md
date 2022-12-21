@@ -72,3 +72,9 @@ Para migrar o novo modelo `User` para a base de dados, podemos executar o comand
 ```sh
 npx prisma migrate dev
 ```
+
+### Coleção das requisições criadas nessa aula no Postman
+
+Você pode importar no POSTMAN a lista das requisições criadas durante essa aula no Link:
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/c05b5d6bd13467eea858?action=collection%2Fimport)
