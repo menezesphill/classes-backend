@@ -23,7 +23,8 @@ const LoginComponent = () => {
   const handleLogin = async () => {
       let API_URL = "http://localhost:3031"
 
-      login(email, password, API_URL)
+      try {
+        login(email, password, API_URL)
         .then(
           (response) => {
             if (response.status == 201) {
@@ -44,7 +45,12 @@ const LoginComponent = () => {
               console.log("Login e senha não batem")
             }
           }
+        ).finally( () => 
+          console.log("A chamada foi executada, independente do código de resposta!")
         )
+      } catch (e) {
+        console.log(e)
+      }
   }
 
   return (

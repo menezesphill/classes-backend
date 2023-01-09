@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { useState } from 'react'
+import { register } from '../../services/index'
 
 import styles from './styles.module.scss'
 
@@ -20,12 +21,35 @@ const SignUpComponent = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [cpf, setCpf] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [errorStatus, setErrorStatus] = useState(0)
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = async () => {
+    // e.preventDefault()
 
-    console.log('submit')
+    try {
+      let API_URL = "http://localhost:3031"
+
+      // Guard
+      if ( password !== confirmPassword ) {
+        setErrorStatus(1)
+        return
+      }
+
+      register(name, email, password, cpf, API_URL)
+      .then(
+        (response) => {
+          if (response.status === 201) {
+            alert("Usuário Registrado com Sucesso!")
+            window.open('/', '_self')
+          }
+        }
+      )
+
+    } catch (e) {
+      alert("ERROR:" + e)
+    }
   }
 
   return (
@@ -55,6 +79,17 @@ const SignUpComponent = () => {
             type='text' 
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className={styles.emailInput} 
+           />
+          <div className={styles.line}/>
+        </div>
+
+        <div className={styles.emailContainer}>
+          <div>CPF</div>
+          <input
+            type='text' 
+            value={cpf}
+            onChange={(e) => setCpf(e.target.value)}
             className={styles.emailInput} 
            />
           <div className={styles.line}/>
@@ -92,11 +127,13 @@ const SignUpComponent = () => {
           <div className={styles.line}/>
         </div>
 
-        <div className={styles.buttonContainer} onClick={() => handleSubmit}>
-          <div className={styles.button}>
+        <div className={styles.buttonContainer}>
+          <div className={styles.button} onClick={handleSubmit}>
             Sign up
           </div>
         </div>
+
+        { errorStatus === 1 ? < PasswordNotMatch /> : <></> }
 
         <div className={styles.loginContainer}>
           Already have an account? <span onClick={() => window.open('/', '_self')}>Login</span>

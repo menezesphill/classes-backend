@@ -4,7 +4,35 @@ import styles from './styles.module.scss'
 
 import julia from './assets/julia.svg'
 
+import { useState, useEffect } from 'react'
+import { getUserData } from '../../../../services'
+
 const SettingsComponent = () => {
+
+  const [ user, setUser ] = useState('')
+  const [ email, setEmail ] = useState('')
+  const [ cpf, setCpf ] = useState('')
+
+  useEffect(() => {
+    fetchUser()
+  }, [])
+
+  const fetchUser = () => {
+    let API_URL = "http://localhost:3031"
+    try {
+      getUserData(API_URL)
+      .then((response) => {
+        setUser(response.data.name)
+        setEmail(response.data.email)
+        setCpf(response.data.cpf)
+      })
+    } catch (e) {
+      alert("ERROR:" + e)
+    }
+  }
+
+  // count => count+1
+
   return (
     <div className={styles.container}>
       <div className={styles.columnContainer}>
@@ -15,7 +43,7 @@ const SettingsComponent = () => {
             </div>
 
             <div className={styles.nameContainer}>
-              Luan#0171
+              {user}
             </div>
           </div>
 
@@ -27,7 +55,7 @@ const SettingsComponent = () => {
                 </div>
 
                 <div className={styles.data}>
-                  Luan#0171
+                  {user}
                 </div>
 
                 <div className={styles.line}/>
@@ -39,7 +67,7 @@ const SettingsComponent = () => {
                 </div>
 
                 <div className={styles.data}>
-                  luanpkfr@gmail.com
+                  {email}
                 </div>
 
                 <div className={styles.line} />
@@ -47,38 +75,14 @@ const SettingsComponent = () => {
 
               <div className={styles.dataContainer}>
                 <div className={styles.label}>
-                  Password
-                </div>
-
-                <div className={styles.data}>
-                  **************
-                </div>
-
-                <div className={styles.line} />
-              </div>
-
-              <div className={styles.dataContainer}>
-                <div className={styles.label}>
-                  Wallet
+                  CPF
                 </div>
                 
                 <div className={styles.data}>
-                  0x329487635g3u4t534u5634rt54g4
+                  {cpf}
                 </div>
 
                 <div className={styles.line} />
-              </div>
-            </div>
-
-            <div className={styles.accountOptionsContainer}>
-              <div className={styles.closeAccount}>
-                Close my account
-              </div>
-
-              <div className={styles.saveButton}>
-                <div className={styles.button}>
-                  Save
-                </div>
               </div>
             </div>
           </div>
